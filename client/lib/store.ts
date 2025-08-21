@@ -1,7 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
+import urlReducer from "./features/url/urlSlice";
+import { RootState } from "./features/types";
 
-const store = configureStore({});
+export const store = (preloadedState?: RootState) => configureStore({
+  reducer: {
+    url: urlReducer,
+  },
+  preloadedState
+});
 
+export type AppStore = ReturnType<typeof store>;
+export type AppDispatch = AppStore['dispatch'];
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export default store;
