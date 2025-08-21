@@ -1,0 +1,7 @@
+node_modules/
+client/.next/
+client/out/
+build/
+dist/
+*.config.js
+.env*
