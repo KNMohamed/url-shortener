@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.1",
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.11.0",
     "js-cookie": "^3.0.5",
     "next": "^14.2.32",
     "react": "^18",
     "react-dom": "^18",
+    "react-inlinesvg": "^4.2.0",
     "react-redux": "^9.2.0",
     "styled-components": "^6.1.19"
   },
