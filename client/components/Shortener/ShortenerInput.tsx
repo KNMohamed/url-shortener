@@ -1,6 +1,7 @@
 import React, { FormEvent } from "react";
 import styled from "styled-components";
 import ShortenerTextInput from "./ShortenerTextInput";
+import ShortenerOptions from "./ShortenerOptions";
 
 // ------------------- Type Definitions -------------------
 
@@ -31,6 +32,7 @@ function ShortenerInput({ handleSubmit }: ShortenerInputProps): JSX.Element {
         style={{ width: "80%" }}
         autoFocus
       />
+      <ShortenerOptions/>
     </ShortenerForm>
   );
 }

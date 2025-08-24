@@ -47,24 +47,24 @@ function Shortener(): JSX.Element {
     e.preventDefault();
     const shortenerForm = e.currentTarget;
     console.log(shortenerForm);
-    // const {
-    //   target: originalUrl,
-    //   customurl: customurlInput,
-    //   password: pwd,
-    // } = shortenerForm.elements as typeof shortenerForm.elements & {
-    //   target: HTMLInputElement;
-    //   customurl: HTMLInputElement;
-    //   password: HTMLInputElement;
-    // };
+    const {
+        target: originalUrl,
+        customurl: customurlInput,
+        password: pwd,
+    } = shortenerForm.elements as typeof shortenerForm.elements & {
+        target: HTMLInputElement;
+        customurl: HTMLInputElement;
+        password: HTMLInputElement;
+    };
+    const target = originalUrl.value.trim();
+    const customurl = customurlInput?.value.trim() ?? "";
+    const password = pwd?.value ?? "";
+    console.log(target, customurl, password);
 
-    // const target = originalUrl.value.trim();
-    // const customurl = customurlInput?.value.trim() ?? "";
-    // const password = pwd?.value ?? "";
+    const options = { customurl, password };
+    shortenerForm.reset();
 
-    // const options = { customurl, password };
-    // shortenerForm.reset();
-
-    // dispatch(createShortUrl({ target, ...options }));
+    dispatch(createShortUrl({ target, ...options }));
   };
 
   return (

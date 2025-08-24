@@ -21,10 +21,18 @@ export const createShortUrl = createAsyncThunk<
   { rejectValue: string }
 >("url/createShortUrl", async (params, { rejectWithValue }) => {
   try {
-    const response = await axios.post("/api/url/submit", params, {
-      headers: { Authorization: cookie.get("token") },
-    });
-    return response.data as UrlItem;
+    // const response = await axios.post("/api/url/submit", params, {
+    //   headers: { Authorization: cookie.get("token") },
+    // });
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return {
+        id: "",
+        target: params.target,
+        createdAt: new Date().toDateString(),
+        password: params.password != "",
+        count: 0,
+        shortUrl: ""
+    } as UrlItem;
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.error);
   }
