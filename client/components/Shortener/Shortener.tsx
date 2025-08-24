@@ -1,12 +1,13 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { fadeIn } from "../../helpers/animations";
 import { RootState } from "../../lib/features/types";
 import { createShortUrl } from "@/lib/features/url/urlSlice"; // Assume actions are from a Redux slice
 import ShortenerInput from "./ShortenerInput";
+import ShortenerResult from "./ShortenerResult";
 
 const Wrapper = styled.div`
   position: relative;
@@ -24,20 +25,21 @@ const Wrapper = styled.div`
   }
 `;
 
-// const ResultWrapper = styled.div`
-//   position: relative;
-//   height: 96px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: flex-start;
-//   box-sizing: border-box;
+const ResultWrapper = styled.div`
+  position: relative;
+  height: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
 
-//   @media only screen and (max-width: 448px) {
-//     height: 72px;
-//   }
-// `;
+  @media only screen and (max-width: 448px) {
+    height: 72px;
+  }
+`;
 
 function Shortener(): JSX.Element {
+  const [copied, setCopied] = useState(false);
   const dispatch = useAppDispatch();
   const url = useAppSelector((state: RootState) => state.url);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -45,13 +47,13 @@ function Shortener(): JSX.Element {
     const shortenerForm = e.currentTarget;
     console.log(shortenerForm);
     const {
-        target: originalUrl,
-        customurl: customurlInput,
-        password: pwd,
+      target: originalUrl,
+      customurl: customurlInput,
+      password: pwd,
     } = shortenerForm.elements as typeof shortenerForm.elements & {
-        target: HTMLInputElement;
-        customurl: HTMLInputElement;
-        password: HTMLInputElement;
+      target: HTMLInputElement;
+      customurl: HTMLInputElement;
+      password: HTMLInputElement;
     };
     const target = originalUrl.value.trim();
     const customurl = customurlInput?.value.trim() ?? "";
@@ -64,8 +66,25 @@ function Shortener(): JSX.Element {
     dispatch(createShortUrl({ target, ...options }));
   };
 
+  const copyHandler = () => {
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1500);
+  };
+
   return (
     <Wrapper>
+      <ResultWrapper>
+        {(url.isShortened || url.status == "loading") && (
+          <ShortenerResult
+            copyHandler={copyHandler}
+            loading={url.status == "loading"}
+            url={url}
+            isCopied={copied}
+          />
+        )}
+      </ResultWrapper>
       <ShortenerInput handleSubmit={handleSubmit}></ShortenerInput>
     </Wrapper>
   );

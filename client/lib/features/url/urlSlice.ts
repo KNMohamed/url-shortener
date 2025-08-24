@@ -31,7 +31,7 @@ export const createShortUrl = createAsyncThunk<
         createdAt: new Date().toDateString(),
         password: params.password != "",
         count: 0,
-        shortUrl: ""
+        shortUrl: "https://example.com/asd213"
     } as UrlItem;
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.error);
