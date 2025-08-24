@@ -39,10 +39,7 @@ const Wrapper = styled.div`
 
 function Shortener(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { url } = useAppSelector((state: RootState) => ({
-    url: state.url,
-  }));
-
+  const url = useAppSelector((state: RootState) => state.url);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const shortenerForm = e.currentTarget;
