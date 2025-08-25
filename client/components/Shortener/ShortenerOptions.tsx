@@ -13,12 +13,14 @@ import TextField from "@mui/material/TextField";
 const Wrapper = styled.div`
   position: absolute;
   top: 74px;
-  left: 100px;
   display: flex;
   flex-direction: column;
   align-self: flex-start;
   justify-content: flex-start;
   z-index: 2;
+  @media only screen and (min-width: 768px) {
+    left: 100px;
+  }
   @media only screen and (max-width: 448px) {
     top: 56px;
   }
@@ -84,9 +86,7 @@ function ShortenerOptions(): JSX.Element {
 
   const customUrlInput = customurlCheckbox && (
     <div>
-      <StyledLabel htmlFor="customurl">
-       {window.location.hostname}/
-      </StyledLabel>
+      <StyledLabel htmlFor="customurl">{window.location.hostname}/</StyledLabel>
       <TextField
         id="customurl"
         type="text"
@@ -136,7 +136,7 @@ function ShortenerOptions(): JSX.Element {
       </CheckboxWrapper>
       <InputWrapper>
         {customUrlInput}
-        {(customurlCheckbox && passwordCheckbox) && <span className="mx-4"/>}
+        {customurlCheckbox && passwordCheckbox && <span className="mx-4" />}
         {passwordInput}
       </InputWrapper>
     </Wrapper>
