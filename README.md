@@ -1,4 +1,5 @@
 # URL Shortener
+<img width="1041" height="675" alt="Screenshot 2025-08-25 at 1 18 28 AM" src="https://github.com/user-attachments/assets/215c81a0-d712-41f3-9e0b-093a5f46d66f" />
 
 A modern URL shortening service built with Next.js and Express.js, designed for local usage and development.
 
