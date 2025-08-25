@@ -14,27 +14,20 @@ const initialState: UrlState = {
   error: null,
 };
 
-// Async Thunks ADD_URL action
+// Async Thunk Create Short URL action
 export const createShortUrl = createAsyncThunk<
   UrlItem,
   CreateUrlParams,
   { rejectValue: string }
 >("url/createShortUrl", async (params, { rejectWithValue }) => {
   try {
-    // const response = await axios.post("/api/url/submit", params, {
-    //   headers: { Authorization: cookie.get("token") },
-    // });
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    return {
-        id: "",
-        target: params.target,
-        createdAt: new Date().toDateString(),
-        password: params.password != "",
-        count: 0,
-        shortUrl: "https://example.com/asd213"
-    } as UrlItem;
+    const response = await axios.post("/api/url/submit", params, {
+      headers: { Authorization: cookie.get("token") },
+    });
+    //TODO: Implement Count logic
+    return { ...response.data, count: 0 } as UrlItem;
   } catch (error: any) {
-    return rejectWithValue(error.response?.data?.error);
+    return rejectWithValue(error.response?.data?.error || "An error occurred");
   }
 });
 

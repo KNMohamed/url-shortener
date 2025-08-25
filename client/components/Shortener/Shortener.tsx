@@ -41,6 +41,7 @@ const ResultWrapper = styled.div`
 function Shortener(): JSX.Element {
   const [copied, setCopied] = useState(false);
   const dispatch = useAppDispatch();
+
   const url = useAppSelector((state: RootState) => state.url);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,6 +56,7 @@ function Shortener(): JSX.Element {
       customurl: HTMLInputElement;
       password: HTMLInputElement;
     };
+
     const target = originalUrl.value.trim();
     const customurl = customurlInput?.value.trim() ?? "";
     const password = pwd?.value ?? "";
@@ -76,7 +78,7 @@ function Shortener(): JSX.Element {
   return (
     <Wrapper>
       <ResultWrapper>
-        {(url.isShortened || url.status == "loading") && (
+        {(url.status == "failed" || url.isShortened || url.status == "loading") && (
           <ShortenerResult
             copyHandler={copyHandler}
             loading={url.status == "loading"}

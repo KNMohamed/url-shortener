@@ -49,6 +49,14 @@ const CopyMessage = styled.p`
   color: #689f38;
   animation: ${fadeIn} 0.3s ease-out;
 `;
+
+const ErrorMessage = styled.p`
+  font-size: 16px;
+  color: #f44336;
+  text-align: center;
+  margin: 16px 0;
+  animation: ${fadeIn} 0.3s ease-out;
+`;
 const ShortenerResult = ({
   loading,
   url,
@@ -58,6 +66,11 @@ const ShortenerResult = ({
   const [showCheckmark, setShowCheckmark] = useState(false);
 
   if (loading) return <CircularProgress />;
+
+  // Show error message if status is failed
+  if (url.status === "failed") {
+    return <ErrorMessage>{url.error}</ErrorMessage>;
+  }
 
   // Safety check for empty list
   if (!url.list.length) return null;
