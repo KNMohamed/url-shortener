@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import * as url from "./controllers/urlController.js";
 
 dotenv.config();
 
@@ -40,27 +41,10 @@ server.get("/", (req, res) => {
   res.json({ message: "Welcome to Express.js server!" });
 });
 
-// API Routes (these will be proxied from Next.js)
-server.get("/api/health", (req, res) => {
-  res.json({ status: "OK", timestamp: new Date().toISOString() });
-});
-
-server.get("/api/users", (req, res) => {
-  res.json({ users: ["user1", "user2", "user3"] });
-});
-
-server.post("/api/users", (req, res) => {
-  const { name } = req.body;
-  res.json({ message: `User ${name} created successfully`, id: Date.now() });
-});
-
-server.get("/api/data", (req, res) => {
-  res.json({
-    data: "This is data from the Express server",
-    timestamp: new Date().toISOString(),
-    requestId: Math.random().toString(36).substr(2, 9),
-  });
-});
+// URL Create Route
+server.post("/api/url/submit", url.urlShortener);
+// URL redirect route
+server.get("/u/:id", url.goToUrl);
 
 // Error handling middleware
 server.use((err, req, res, _next) => {
